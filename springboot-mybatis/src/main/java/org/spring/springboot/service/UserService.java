@@ -10,4 +10,10 @@ public interface UserService {
      * 获取所有用户信息
      */
     User selectByPrimaryKey(Integer id);
+
+    /**
+     *  判断登录是否正确
+     */
+
+    int selectByUser(User user);
 }

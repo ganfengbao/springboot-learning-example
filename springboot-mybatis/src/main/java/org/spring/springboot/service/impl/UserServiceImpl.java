@@ -16,4 +16,9 @@ public class UserServiceImpl implements UserService {
     public User selectByPrimaryKey(Integer id) {
         return userMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public int selectByUser(User user) {
+        return userMapper.selectByUser(user);
+    }
 }

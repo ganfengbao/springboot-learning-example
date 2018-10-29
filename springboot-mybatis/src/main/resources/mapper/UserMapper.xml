@@ -7,9 +7,10 @@
     <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
     <result column="user_phone" jdbcType="VARCHAR" property="userPhone" />
     <result column="user_age" jdbcType="INTEGER" property="userAge" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
   </resultMap>
   <sql id="Base_Column_List">
-    user_id, user_name, user_email, user_phone, user_age
+    user_id, user_name, user_email, user_phone, user_age, user_password
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -17,15 +18,41 @@
     from user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
+  <select id="selectByUser" parameterType="org.spring.springboot.domain.User" resultType="int">
+    select
+    count(*)
+    from user
+    where 1=1
+      <if test="userId != null">
+       and user_id = #{userId,jdbcType=INTEGER}
+      </if>
+      <if test="userName != null">
+       and user_name = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="userEmail != null">
+       and user_email = #{userEmail,jdbcType=VARCHAR}
+      </if>
+      <if test="userPhone != null">
+        and user_phone = #{userPhone,jdbcType=VARCHAR}
+      </if>
+      <if test="userAge != null">
+        and user_age = #{userAge,jdbcType=INTEGER}
+      </if>
+      <if test="userPassword != null">
+        and user_password = #{userPassword,jdbcType=VARCHAR}
+      </if>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="org.spring.springboot.domain.User">
     insert into user (user_id, user_name, user_email, 
-      user_phone, user_age)
+      user_phone, user_age, user_password
+      )
     values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, 
-      #{userPhone,jdbcType=VARCHAR}, #{userAge,jdbcType=INTEGER})
+      #{userPhone,jdbcType=VARCHAR}, #{userAge,jdbcType=INTEGER}, #{userPassword,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="org.spring.springboot.domain.User">
     insert into user
@@ -45,6 +72,9 @@
       <if test="userAge != null">
         user_age,
       </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="userId != null">
@@ -61,6 +91,9 @@
       </if>
       <if test="userAge != null">
         #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -79,6 +112,9 @@
       <if test="userAge != null">
         user_age = #{userAge,jdbcType=INTEGER},
       </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
@@ -87,7 +123,8 @@
     set user_name = #{userName,jdbcType=VARCHAR},
       user_email = #{userEmail,jdbcType=VARCHAR},
       user_phone = #{userPhone,jdbcType=VARCHAR},
-      user_age = #{userAge,jdbcType=INTEGER}
+      user_age = #{userAge,jdbcType=INTEGER},
+      user_password = #{userPassword,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

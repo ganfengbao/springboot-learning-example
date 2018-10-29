@@ -11,6 +11,8 @@ public class User {
 
     private Integer userAge;
 
+    private String userPassword;
+
     public Integer getUserId() {
         return userId;
     }
@@ -49,5 +51,13 @@ public class User {
 
     public void setUserAge(Integer userAge) {
         this.userAge = userAge;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 }
