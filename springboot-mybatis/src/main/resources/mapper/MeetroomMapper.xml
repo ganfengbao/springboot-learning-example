@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring.springboot.dao.MeetroomMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.Meetroom">
+    <id column="meet_id" jdbcType="INTEGER" property="meetId" />
+    <result column="meet_user" jdbcType="VARCHAR" property="meetUser" />
+    <result column="room_name" jdbcType="VARCHAR" property="roomName" />
+    <result column="meet_start_time" jdbcType="TIME" property="meetStartTime" />
+    <result column="meet_end_time" jdbcType="TIME" property="meetEndTime" />
+    <result column="meet_date" jdbcType="DATE" property="meetDate" />
+    <result column="meet_content" jdbcType="VARCHAR" property="meetContent" />
+    <result column="meet_title" jdbcType="VARCHAR" property="meetTitle" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="org.spring.springboot.domain.Meetroom">
+    <result column="meet_conventioner" jdbcType="LONGVARCHAR" property="meetConventioner" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    meet_id, meet_user, room_name, meet_start_time, meet_end_time, meet_date, meet_content, 
+    meet_title
+  </sql>
+  <sql id="Blob_Column_List">
+    meet_conventioner
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from meetroom
+    where meet_id = #{meetId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from meetroom
+    where meet_id = #{meetId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.Meetroom">
+    insert into meetroom (meet_id, meet_user, room_name, 
+      meet_start_time, meet_end_time, meet_date, 
+      meet_content, meet_title, meet_conventioner
+      )
+    values (#{meetId,jdbcType=INTEGER}, #{meetUser,jdbcType=VARCHAR}, #{roomName,jdbcType=VARCHAR}, 
+      #{meetStartTime,jdbcType=TIME}, #{meetEndTime,jdbcType=TIME}, #{meetDate,jdbcType=DATE}, 
+      #{meetContent,jdbcType=VARCHAR}, #{meetTitle,jdbcType=VARCHAR}, #{meetConventioner,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.Meetroom">
+    insert into meetroom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="meetId != null">
+        meet_id,
+      </if>
+      <if test="meetUser != null">
+        meet_user,
+      </if>
+      <if test="roomName != null">
+        room_name,
+      </if>
+      <if test="meetStartTime != null">
+        meet_start_time,
+      </if>
+      <if test="meetEndTime != null">
+        meet_end_time,
+      </if>
+      <if test="meetDate != null">
+        meet_date,
+      </if>
+      <if test="meetContent != null">
+        meet_content,
+      </if>
+      <if test="meetTitle != null">
+        meet_title,
+      </if>
+      <if test="meetConventioner != null">
+        meet_conventioner,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="meetId != null">
+        #{meetId,jdbcType=INTEGER},
+      </if>
+      <if test="meetUser != null">
+        #{meetUser,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null">
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="meetStartTime != null">
+        #{meetStartTime,jdbcType=TIME},
+      </if>
+      <if test="meetEndTime != null">
+        #{meetEndTime,jdbcType=TIME},
+      </if>
+      <if test="meetDate != null">
+        #{meetDate,jdbcType=DATE},
+      </if>
+      <if test="meetContent != null">
+        #{meetContent,jdbcType=VARCHAR},
+      </if>
+      <if test="meetTitle != null">
+        #{meetTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="meetConventioner != null">
+        #{meetConventioner,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.Meetroom">
+    update meetroom
+    <set>
+      <if test="meetUser != null">
+        meet_user = #{meetUser,jdbcType=VARCHAR},
+      </if>
+      <if test="roomName != null">
+        room_name = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="meetStartTime != null">
+        meet_start_time = #{meetStartTime,jdbcType=TIME},
+      </if>
+      <if test="meetEndTime != null">
+        meet_end_time = #{meetEndTime,jdbcType=TIME},
+      </if>
+      <if test="meetDate != null">
+        meet_date = #{meetDate,jdbcType=DATE},
+      </if>
+      <if test="meetContent != null">
+        meet_content = #{meetContent,jdbcType=VARCHAR},
+      </if>
+      <if test="meetTitle != null">
+        meet_title = #{meetTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="meetConventioner != null">
+        meet_conventioner = #{meetConventioner,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where meet_id = #{meetId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="org.spring.springboot.domain.Meetroom">
+    update meetroom
+    set meet_user = #{meetUser,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      meet_start_time = #{meetStartTime,jdbcType=TIME},
+      meet_end_time = #{meetEndTime,jdbcType=TIME},
+      meet_date = #{meetDate,jdbcType=DATE},
+      meet_content = #{meetContent,jdbcType=VARCHAR},
+      meet_title = #{meetTitle,jdbcType=VARCHAR},
+      meet_conventioner = #{meetConventioner,jdbcType=LONGVARCHAR}
+    where meet_id = #{meetId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.Meetroom">
+    update meetroom
+    set meet_user = #{meetUser,jdbcType=VARCHAR},
+      room_name = #{roomName,jdbcType=VARCHAR},
+      meet_start_time = #{meetStartTime,jdbcType=TIME},
+      meet_end_time = #{meetEndTime,jdbcType=TIME},
+      meet_date = #{meetDate,jdbcType=DATE},
+      meet_content = #{meetContent,jdbcType=VARCHAR},
+      meet_title = #{meetTitle,jdbcType=VARCHAR}
+    where meet_id = #{meetId,jdbcType=INTEGER}
+  </update>
+</mapper>

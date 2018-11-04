@@ -28,9 +28,10 @@ public class LoginController {
     }
 
     @RequestMapping("/login/verification")
-    public String verificationLogin(User user) {
+    public String verificationLogin(User user, ModelAndView modelAndView) {
 
 //        ModelAndView view = new ModelAndView();
+
 
 
         int count = userService.selectByUser(user);
@@ -40,5 +41,10 @@ public class LoginController {
 
         else return "login/login";
 
+    }
+
+    @RequestMapping("/fileUpAndDown")
+    public String fileUpAndDown() {
+        return "fileup/up";
     }
 }

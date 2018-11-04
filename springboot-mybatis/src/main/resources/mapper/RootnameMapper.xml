@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.spring.springboot.dao.RootnameMapper">
+  <resultMap id="BaseResultMap" type="org.spring.springboot.domain.Rootname">
+    <id column="root_id" jdbcType="INTEGER" property="rootId" />
+    <result column="root_name" jdbcType="VARCHAR" property="rootName" />
+    <result column="root_enabled" jdbcType="INTEGER" property="rootEnabled" />
+    <result column="root_reserve_time" jdbcType="TIME" property="rootReserveTime" />
+    <result column="root_reserve_date" jdbcType="DATE" property="rootReserveDate" />
+    <result column="root_free_time" jdbcType="TIME" property="rootFreeTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    root_id, root_name, root_enabled, root_reserve_time, root_reserve_date, root_free_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rootname
+    where root_id = #{rootId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from rootname
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rootname
+    where root_id = #{rootId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.spring.springboot.domain.Rootname">
+    insert into rootname (root_id, root_name, root_enabled, 
+      root_reserve_time, root_reserve_date, root_free_time
+      )
+    values (#{rootId,jdbcType=INTEGER}, #{rootName,jdbcType=VARCHAR}, #{rootEnabled,jdbcType=INTEGER}, 
+      #{rootReserveTime,jdbcType=TIME}, #{rootReserveDate,jdbcType=DATE}, #{rootFreeTime,jdbcType=TIME}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="org.spring.springboot.domain.Rootname">
+    insert into rootname
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rootId != null">
+        root_id,
+      </if>
+      <if test="rootName != null">
+        root_name,
+      </if>
+      <if test="rootEnabled != null">
+        root_enabled,
+      </if>
+      <if test="rootReserveTime != null">
+        root_reserve_time,
+      </if>
+      <if test="rootReserveDate != null">
+        root_reserve_date,
+      </if>
+      <if test="rootFreeTime != null">
+        root_free_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rootId != null">
+        #{rootId,jdbcType=INTEGER},
+      </if>
+      <if test="rootName != null">
+        #{rootName,jdbcType=VARCHAR},
+      </if>
+      <if test="rootEnabled != null">
+        #{rootEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="rootReserveTime != null">
+        #{rootReserveTime,jdbcType=TIME},
+      </if>
+      <if test="rootReserveDate != null">
+        #{rootReserveDate,jdbcType=DATE},
+      </if>
+      <if test="rootFreeTime != null">
+        #{rootFreeTime,jdbcType=TIME},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.spring.springboot.domain.Rootname">
+    update rootname
+    <set>
+      <if test="rootName != null">
+        root_name = #{rootName,jdbcType=VARCHAR},
+      </if>
+      <if test="rootEnabled != null">
+        root_enabled = #{rootEnabled,jdbcType=INTEGER},
+      </if>
+      <if test="rootReserveTime != null">
+        root_reserve_time = #{rootReserveTime,jdbcType=TIME},
+      </if>
+      <if test="rootReserveDate != null">
+        root_reserve_date = #{rootReserveDate,jdbcType=DATE},
+      </if>
+      <if test="rootFreeTime != null">
+        root_free_time = #{rootFreeTime,jdbcType=TIME},
+      </if>
+    </set>
+    where root_id = #{rootId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.spring.springboot.domain.Rootname">
+    update rootname
+    set root_name = #{rootName,jdbcType=VARCHAR},
+      root_enabled = #{rootEnabled,jdbcType=INTEGER},
+      root_reserve_time = #{rootReserveTime,jdbcType=TIME},
+      root_reserve_date = #{rootReserveDate,jdbcType=DATE},
+      root_free_time = #{rootFreeTime,jdbcType=TIME}
+    where root_id = #{rootId,jdbcType=INTEGER}
+  </update>
+</mapper>
